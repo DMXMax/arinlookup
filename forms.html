@@ -1,0 +1,60 @@
+<head>
+    <title>ARIN Lookup</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<div class="container mt-5">
+    <div class="row">
+
+        <div class="container-fluid p-2 bg-dark text-white text-center">
+            <h1>ARIN Database Lookup</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <form method="POST">
+                <label class="form-label">IP Address/CIDR:</label><br />
+                <input class="form-control" type="text" name="address"><br />
+                <input type="submit">
+            </form>
+        </div>
+
+        <div class="col-sm-4 border">
+            {{if .Network}}
+            {{range .Network.Entities}}
+            <h4>{{.VCard.Name}}</h4>
+            {{ if .Links}}
+            <ul class="list-group">
+                {{range .Links}}
+
+                <li class="list-group-item"> {{.Href}}</li>
+                {{end}}
+            </ul>
+            {{end}}
+            {{if .Notices }}
+            <ul class="list-group">
+            {{range .Notices}}
+            <li class="list-group-item"> {{.Title}} </li>
+            {{end}}
+            </ul>
+            {{end}}
+            {{end}}
+            <ul class="list-group">
+                <li class="list-group-item"> {{.Network.StartAddress}}</li>
+                <li class="list-group-item"> {{.Network.EndAddress}}</li>
+            </ul>
+            {{if .Network.Links}}
+            <ul class="list-group">
+                {{range .Network.Links}}
+                <li class="list-group-item"> {{.Href}}</li>
+                {{end}}
+            </ul>
+            {{end}}
+            {{end}}
+            
+        </div>
+
+    </div>
+</div>
